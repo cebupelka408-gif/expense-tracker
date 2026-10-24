@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Дашборд</h1>
+<div id="emptyDashboard" class="card empty">
+  <i class="fa-solid fa-wallet"></i><h2>Добавьте первый расход</h2>
+  <p>Дашборд заполнится после добавления ваших операций.</p>
+</div>
+<div id="dashboardContent" class="hidden">
+  <div class="stats" id="stats"></div>
+  <div class="grid two">
+    <section class="card"><h2>Расходы по категориям</h2><canvas id="categoryChart"></canvas></section>
+    <section class="card"><h2>Расходы по дням</h2><canvas id="dailyChart"></canvas></section>
+  </div>
+  <section class="card"><h2>Динамика за 6 месяцев</h2><canvas id="monthlyChart"></canvas></section>
+  <section class="card"><h2>Последние 5 транзакций</h2><div id="recentList" class="list"></div></section>
+</div>
+{% endblock %}
+{% block scripts %}<script>window.pageType="dashboard";</script>{% endblock %}
