@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — Учёт расходов BYN</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-body">
+<main class="auth-wrap">
+  <section class="auth-card">
+    <div class="auth-brand">
+      <span class="brand-badge">Br</span>
+      <h1>Учёт расходов</h1>
+    </div>
+
+    <p class="auth-sub">Личный бюджет в белорусских рублях</p>
+
+    <div class="tabs">
+      <button type="button" class="tab {{ 'active' if mode == 'login' }}" data-mode="login">Вход</button>
+      <button type="button" class="tab {{ 'active' if mode == 'register' }}" data-mode="register">Регистрация</button>
+    </div>
+
+    <form method="post" class="auth-form">
+      <input type="hidden" name="mode" id="modeInput" value="{{ mode }}">
+
+      <label>
+        Ник аккаунта
+        <input type="text" name="nickname" value="{{ request.form.get('nickname', '') }}"
+               placeholder="Например: alex" minlength="3" required>
+      </label>
+
+      <label>
+        Пароль
+        <input type="password" name="password" placeholder="Минимум 4 символа" minlength="4" required>
+      </label>
+
+      {% if error %}
+        <div class="auth-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          {{ error }}
+        </div>
+      {% endif %}
+
+      <button class="btn primary full" type="submit">
+        {{ 'Создать аккаунт' if mode == 'register' else 'Войти' }}
+      </button>
+    </form>
+
+    <p class="auth-note">
+      Один аккаунт привязывается к этому устройству.
+      При следующем открытии сайта вход не потребуется.
+    </p>
+  </section>
+</main>
+
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  const modeInput = document.getElementById("modeInput");
+  const submitButton = document.querySelector(".auth-form button[type=submit]");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(item => item.classList.remove("active"));
+      tab.classList.add("active");
+
+      modeInput.value = tab.dataset.mode;
+      submitButton.textContent = tab.dataset.mode === "register"
+        ? "Создать аккаунт"
+        : "Войти";
+    });
+  });
+</script>
+</body>
+</html>
