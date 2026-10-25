@@ -139,6 +139,11 @@ def export():
 def failure(error):
     if request.path.startswith("/api/"): return jsonify(error="Ошибка сервера: проверьте Render Logs"),500
     return "Ошибка сервера. Подробности в Render Logs.",500
-
+@app.get("/diagnostics")
+def diagnostics():
+    if request.args.get("check"):
+        return jsonify(cookie=session.get("ping"))
+    session["ping"] = "ok"
+    return 'Проверка cookie: <a href="/diagnostics?check=1">нажмите здесь</a>'
 if __name__=="__main__":
     app.run(port=5000,debug=False)
