@@ -31,6 +31,7 @@
     <button type="button" class="tab {{ 'active' if mode=='register' }}" data-mode="register">Регистрация</button>
   </div>
   <form method="post" class="auth-form">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
     <input type="hidden" name="mode" id="modeInput" value="{{ mode }}">
     <label>Ник аккаунта<input type="text" name="nickname" value="{{ request.form.get('nickname','') }}" placeholder="Например: alex" minlength="3" required></label>
     <label>Пароль<input type="password" name="password" placeholder="Минимум 4 символа" minlength="4" required></label>
