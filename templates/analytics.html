@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Аналитика</h1>
+<div id="emptyAnalytics" class="card empty">
+  <i class="fa-solid fa-chart-pie"></i><h2>Добавьте первый расход</h2>
+  <p>Аналитика появится после заполнения расходов.</p>
+</div>
+<div id="analyticsContent" class="hidden">
+  <div class="stats" id="analyticsStats"></div>
+  <section class="card"><h2>Расходы по месяцам</h2><canvas id="analyticsMonthlyChart"></canvas></section>
+  <div class="grid two">
+    <section class="card"><h2>Топ-5 покупок</h2><div id="topExpenses" class="list"></div></section>
+    <section class="card"><h2>Средний чек по категориям</h2><div id="averageCheck" class="list"></div></section>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script>window.pageType="analytics";</script>{% endblock %}
